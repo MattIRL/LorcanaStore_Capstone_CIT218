@@ -1,0 +1,50 @@
+﻿@model LorcanaCardCollector.Models.Cards
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="freckle-font" style="color: #d5b88b">Card Details</h1>
+
+<div class="bg-opacity-70 ps-sm-4 rounded shadow-sm" style="background-color: #d5b88b">
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CardName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CardName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GemColor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GemColor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SetName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SetName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Franchise)
+        </dt>
+        <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Franchise)
+                
+        </dd>
+    </dl>
+</div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID" class=" btn btn-primary me-3">Edit</a>
+    <a asp-action="Index" class=" btn btn-secondary">Back to List</a>
+</div>

@@ -1,0 +1,51 @@
+﻿@model LorcanaCardCollector.Models.Cards
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="freckle-font" style="color: #d5b88b">Add Card</h1>
+<hr />
+<div class="row text-light">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-sm-2">
+                <label asp-for="CardName" class="control-label"></label>
+                <input asp-for="CardName" class="form-control" />
+                <span asp-validation-for="CardName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-sm-2">
+                <label asp-for="GemColor" class="control-label"></label>
+                <select asp-for="GemColor" class="form-control" asp-items="Html.GetEnumSelectList<GemColor>()">
+                    <option value="">Gem Color(s)</option>
+                </select>
+                <span asp-validation-for="GemColor" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-sm-2">
+                <label asp-for="SetName" class="control-label"></label>
+                <input asp-for="SetName" class="form-control" />
+                <span asp-validation-for="SetName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-sm-2">
+                <label asp-for="Ink" class="control-label"></label>
+                <input asp-for="Ink" class="form-control" />
+                <span asp-validation-for="Ink" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check mt-sm-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Franchise" /> @Html.DisplayNameFor(model => model.Franchise)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary mt-sm-3 me-sm-3" />
+                <a asp-action="Index" class="btn btn-secondary mt-sm-3">Back to List</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
