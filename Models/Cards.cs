@@ -49,6 +49,8 @@ namespace LorcanaCardCollector.Models
     }
     public class Cards
     {
+        public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>();
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string ID { get; set; } = Guid.NewGuid().ToString();
@@ -70,6 +72,7 @@ namespace LorcanaCardCollector.Models
         [Required]
         [Display(Name = "Color Identity")]
         public GemColor GemColor { get; set; }
+
         [Display(Name ="Ink Cost")]
         public int? Ink { get; set; }
 
