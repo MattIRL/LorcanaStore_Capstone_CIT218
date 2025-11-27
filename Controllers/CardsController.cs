@@ -1,22 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LorcanaCardCollector.Models;
+using LorcanaCardCollector.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LorcanaCardCollector.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LorcanaCardCollector.Controllers
 {
     public class CardsController : Controller
     {
         private readonly CardsContext _context;
+        private readonly LorcanaApiService _apiService;
 
-        public CardsController(CardsContext context)
+        public CardsController(CardsContext context, LorcanaApiService apiService)
         {
             _context = context;
+            _apiService = apiService;
+            
         }
+        [HttpGet]
+        public async Task<IActionResult> Search(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return BadRequest("Missing name parameter.");
+
+            var cards = await _apiService.SearchCardsAsync(name);
+            return Json(cards);
+        }
+
 
         // GET: Cards
         public async Task<IActionResult> Index()
@@ -176,29 +190,8 @@ namespace LorcanaCardCollector.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Search(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                return BadRequest("Missing name parameter.");
-
-            var url = $"https://api.lorcana-api.com/cards/fetch?search=name~{Uri.EscapeDataString(name)}";
-
-            using var client = new HttpClient();
-            var response = await client.GetAsync(url);
-
-            if (!response.IsSuccessStatusCode)
-                return NotFound("No cards found.");
-
-            var json = await response.Content.ReadAsStringAsync();
-
-            return Content(json, "application/json");
-        }
 
 
-        private bool CardsExists(string id)
-        {
-            return _context.Cards.Any(e => e.ID == id);
-        }
+        private bool CardsExists(string id) => _context.Cards.Any(e => e.ID == id);
     }
 }
