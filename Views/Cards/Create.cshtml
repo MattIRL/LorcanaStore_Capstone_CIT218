@@ -6,46 +6,171 @@
 
 <h1 class="freckle-font" style="color: #d5b88b">Add Card</h1>
 <hr />
-<div class="row text-light">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-sm-2">
-                <label asp-for="CardName" class="control-label"></label>
-                <input asp-for="CardName" class="form-control" />
-                <span asp-validation-for="CardName" class="text-danger"></span>
+<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+    <div class="row text-light">
+        <div class="p-3 mb-3">
+            <div class="col-md-6 m-4 text-dark">
+                <h5>Search Lorcana API for Cards</h5>
+                <div class="input-group">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Search by card name..." />
+                    <button id="searchBtn" type="button" class="btn btn-primary ms-2">Search</button>
+                </div>
             </div>
-            <div class="form-group mb-sm-2">
-                <label asp-for="GemColor" class="control-label"></label>
-                <select asp-for="GemColor" class="form-control" asp-items="Html.GetEnumSelectList<GemColor>()">
-                    <option value="">Gem Color(s)</option>
-                </select>
-                <span asp-validation-for="GemColor" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-sm-2">
-                <label asp-for="SetName" class="control-label"></label>
-                <input asp-for="SetName" class="form-control" />
-                <span asp-validation-for="SetName" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-sm-2">
-                <label asp-for="Ink" class="control-label"></label>
-                <input asp-for="Ink" class="form-control" />
-                <span asp-validation-for="Ink" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check mt-sm-2">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Franchise" /> @Html.DisplayNameFor(model => model.Franchise)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary mt-sm-3 me-sm-3" />
-                <a asp-action="Index" class="btn btn-secondary mt-sm-3">Back to List</a>
 
-            </div>
-        </form>
+            <div id="searchResults" class="list-group mt-2" style="display:none; cursor:pointer;"></div>
+        </div>
+
+        <div class="col-md-6 m-4 text-dark">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-sm-2">
+                    <label asp-for="ID" class="control-label"></label>
+                    <input asp-for="ID" class="form-control" placeholder="From API...'ARI-001'" />
+                    <span asp-validation-for="ID" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-sm-2">
+                    <label asp-for="CardName" class="control-label"></label>
+                    <input asp-for="CardName" class="form-control" />
+                    <span asp-validation-for="CardName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-sm-2">
+                    <label asp-for="Franchise" class="control-label"></label>
+                    <input asp-for="Franchise" class="form-control" />
+                    <span asp-validation-for="Franchise" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-sm-2">
+                    <label asp-for="Image_URL" class="control-label"></label>
+                    <input asp-for="Image_URL" class="form-control" />
+                    <span asp-validation-for="Image_URL" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-sm-2">
+                    <label asp-for="GemColor" class="control-label"></label>
+                    <select asp-for="GemColor" id="GemColor" class="form-control" asp-items="Html.GetEnumSelectList<GemColor>()">
+                        <option value="">Gem Color(s)</option>
+                    </select>
+                    <span asp-validation-for="GemColor" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-sm-2">
+                    <label asp-for="SetName" class="control-label"></label>
+                    <input asp-for="SetName" class="form-control" />
+                    <span asp-validation-for="SetName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-sm-2">
+                    <label asp-for="Ink" class="control-label"></label>
+                    <input asp-for="Ink" class="form-control" />
+                    <span asp-validation-for="Ink" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-sm-2">
+                    <label asp-for="Willpower" class="control-label"></label>
+                    <input asp-for="Willpower" class="form-control" />
+                    <span asp-validation-for="Willpower" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-sm-2">
+                    <label asp-for="Strength" class="control-label"></label>
+                    <input asp-for="Strength" class="form-control" />
+                    <span asp-validation-for="Strength" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary mt-sm-3 me-sm-3" formnovalidate/>
+                    <a asp-action="Index" class="btn btn-secondary text-light mt-sm-3">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        const gemColorMap = {
+            // Single Colors
+            "Amber": "0",
+            "Amethyst": "1",
+            "Emerald": "2",
+            "Ruby": "3",
+            "Sapphire": "4",
+            "Steel": "5",
+
+            // Two-color combinations (15 total)
+            "Amber, Amethyst": "6",
+            "Amber, Emerald": "7",
+            "Amber, Ruby": "8",
+            "Amber, Sapphire": "9",
+            "Amber, Steel": "10",
+
+            "Amethyst, Emerald": "11",
+            "Amethyst, Ruby": "12",
+            "Amethyst, Sapphire": "13",
+            "Amethyst, Steel": "14",
+
+            "Emerald, Ruby": "15",
+            "Emerald, Sapphire": "16",
+            "Emerald, Steel": "17",
+
+            "Ruby, Sapphire": "18",
+            "Ruby, Steel": "19",
+
+            "Sapphire, Steel": "20"
+        };
+
+        document.getElementById("searchBtn").addEventListener("click", async () => {
+            const query = document.getElementById("searchInput").value.trim();
+            const container = document.getElementById("searchResults");
+
+            if (!query) return;
+
+            container.innerHTML = "<p>Searching...</p>";
+
+            const res = await fetch(`/Cards/Search?name=${encodeURIComponent(query)}`);
+            if (!res.ok) {
+                container.innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            const data = await res.json();
+            container.innerHTML = "";
+            container.style.display = "block";
+
+            data.forEach(card => {
+                const div = document.createElement("div");
+                div.classList.add("card-result");
+                div.innerHTML = `
+                    <img src="${card.Image}" alt="${card.Name}">
+                    <div class="card-overlay">${card.Name}</div>
+                `;
+                div.addEventListener("click", () => selectCard(card));
+                container.appendChild(div);
+            });
+        });
+
+        function selectCard(card) {
+            document.getElementById("ID").value = card.Unique_ID || "";
+            document.getElementById("CardName").value = card.Name || "";
+            document.getElementById("Franchise").value = card.Franchise || "";
+            document.getElementById("Image_URL").value = card.Image || "";
+            document.getElementById("SetName").value = card.Set_Name || "";
+            document.getElementById("Ink").value = card.Cost ?? "";
+            document.getElementById("Willpower").value = card.Willpower ?? "";
+            document.getElementById("Strength").value = card.Strength ?? "";
+
+            const selectElem = document.getElementById("GemColor");
+            const gemEnumValue = gemColorMap[card.Color] || "";
+            selectElem.value = gemEnumValue;
+
+            document.getElementById("searchResults").style.display = "block";
+            document.getElementById("CardName").scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 }

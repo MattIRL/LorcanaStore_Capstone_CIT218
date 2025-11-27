@@ -6,21 +6,24 @@
 
 <h1>Create</h1>
 
-<h4>Deck</h4>
+<h4>DeckCard</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <select asp-for="DeckId" asp-items="@(new SelectList(ViewBag.Decks, "DeckId", "DeckName"))"></select>
-
+                <label asp-for="CardId" class="control-label"></label>
+                <select asp-for="CardId" class ="form-control" asp-items="ViewBag.CardId"></select>
             </div>
             <div class="form-group">
-                <select asp-for="CardId" asp-items="@(new SelectList(ViewBag.Cards, "ID", "CardName"))"></select>
-
+                <label asp-for="DeckId" class="control-label"></label>
+                <select asp-for="DeckId" class ="form-control" asp-items="ViewBag.DeckId"></select>
             </div>
             <div class="form-group">
+                <label asp-for="QuantityInDeck" class="control-label"></label>
+                <input asp-for="QuantityInDeck" class="form-control" />
+                <span asp-validation-for="QuantityInDeck" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -34,7 +37,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

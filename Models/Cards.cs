@@ -36,9 +36,9 @@ namespace LorcanaCardCollector.Models
         AmethystSteel,
         [Display(Name = "Emerald & Ruby")]
         EmeraldRuby,
-        [Display(Name = "Amethyst & Sapphire")]
+        [Display(Name = "Emerald & Sapphire")]
         EmeraldSapphire,
-        [Display(Name = "Amethyst & Steel")]
+        [Display(Name = "Emerald & Steel")]
         EmeraldSteel,
         [Display(Name = "Ruby & Sapphire")]
         RubySapphire,
@@ -57,8 +57,8 @@ namespace LorcanaCardCollector.Models
 
         [Required]
         [Display(Name = "Card Name")]
-        [StringLength(100, ErrorMessage ="Please enter a card name using 100 characters or less.")]
-        public string? CardName { get; set; }
+        [StringLength(100, ErrorMessage = "Please enter a card name using 100 characters or less.")]
+        public string CardName { get; set; } = string.Empty;
 
         [Display(Name = "Franchise")]
         [StringLength(100)]
@@ -84,8 +84,9 @@ namespace LorcanaCardCollector.Models
 
         [Required]
         [Display(Name = "Set Name")]
-        [StringLength(100, ErrorMessage ="Please enter a set name using 100 characters or less.")]
-        [RegularExpression(@"^[\p{L} ']+$", ErrorMessage = "Only alphabetic letters are allowed.")]
-        public string? SetName { get; set; }
+        [StringLength(100, ErrorMessage = "Please enter a set name using 100 characters or less.")]
+        [RegularExpression(@"^[\p{L}0-9 ',\-&\(\)]+$",
+    ErrorMessage = "Set Name contains invalid characters. Only letters, numbers, spaces, and common punctuation (',-&()) are allowed.")]
+        public string SetName { get; set; } = string.Empty;
     }
 }

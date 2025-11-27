@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<LorcanaCardCollector.Models.DeckCard>
+
 @{
+    ViewData["Title"] = "Index";
 }
+
+<h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">DeckCard</h1>
+
+<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+
+    <p>
+        <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Create New</a>
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Card)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deck)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityInDeck)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Card.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deck.AccessKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityInDeck)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { deckId = item.DeckId, cardId = item.CardId }) |
+                    @Html.ActionLink("Details", "Details", new { deckId = item.DeckId, cardId = item.CardId }) |
+                    @Html.ActionLink("Delete", "Delete", new { deckId = item.DeckId, cardId = item.CardId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

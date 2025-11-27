@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">Decks</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+
+    <p>
+        <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Create New</a>
+    </p>
 <table class="table">
     <thead>
         <tr>
@@ -36,12 +38,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AccessKey)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DeckId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DeckId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DeckId">Delete</a>
-            </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.DeckId">Edit</a>
+                        <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.DeckId">Details</a>
+                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.DeckId">Delete</a>
+                    </td>
         </tr>
 }
     </tbody>
 </table>
+</div>

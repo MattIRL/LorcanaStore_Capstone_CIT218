@@ -1,42 +1,64 @@
 ﻿@model LorcanaCardCollector.Models.Inventory
 
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="freckle-font" style="color: #d5b88b">Card Details</h1>
 
-<div>
-    <h4>Inventory</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Card)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Card.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
+<div class="bg-opacity-70 ps-sm-4 rounded shadow-sm" style="background-color: #d5b88b">
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Card.CardName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Card.CardName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
+            <dd class="col-sm-10">
+                $@Html.DisplayFor(model => model.Cost)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                $@Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
+        <img src="@Model.Card.Image_URL"
+             style="width:200px; height:100%; cursor:pointer;"
+             class="mb-4"
+             onclick="openImageOverlay('@Model.Card.Image_URL')" />
+    </div>
+    <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
+        <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
+        <img id="overlayImg" class="overlay-content" />
+    </div>
+    <script>
+        function openImageOverlay(url) {
+            document.getElementById("overlayImg").src = url;
+            document.getElementById("imageOverlay").style.display = "flex";
+        }
+
+        function closeImageOverlay(event) {
+            // prevent closing when clicking the image itself
+            if (event && event.target.id === "overlayImg") return;
+            document.getElementById("imageOverlay").style.display = "none";
+        }
+    </script>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.InventoryId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.InventoryId" class=" btn btn-primary me-3">Edit</a> |
+    <a asp-action="Index" class=" btn btn-secondary text-light">Back to List</a>
 </div>

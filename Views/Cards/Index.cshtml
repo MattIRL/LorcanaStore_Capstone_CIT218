@@ -6,16 +6,16 @@
 
 <h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">Cards</h1>
 
-<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+<div class="bg-opacity-70 rounded shadow-sm p-2" style="background: #d5b88b;">
 
 <p>
-    <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Create New</a>
+    <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Add Card</a>
 </p>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(Model => Model.Image_URL)
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CardName)

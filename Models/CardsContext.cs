@@ -17,8 +17,9 @@ namespace LorcanaCardCollector.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<DeckCard>()
-                .HasKey(dc => new { dc.CardId, dc.DeckId });
+                .HasKey(dc => new { dc.DeckId, dc.CardId });
             // Relationship: DeckCard → Card (many-to-one)
+
             modelBuilder.Entity<DeckCard>()
                 .HasOne(dc => dc.Card)
                 .WithMany(c => c.DeckCards)

@@ -6,8 +6,9 @@
 
 <h1 class="freckle-font" style="color: #d5b88b">Edit Card</h1>
 <hr />
-<div class="row text-light">
-    <div class="col-md-4">
+<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+<div class="row">
+    <div class="col-md-4 m-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -37,12 +38,12 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary me-sm-3" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <a asp-action="Index" class="btn btn-secondary text-light">Back to List</a>
             </div>
         </form>
     </div>
 </div>
-
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

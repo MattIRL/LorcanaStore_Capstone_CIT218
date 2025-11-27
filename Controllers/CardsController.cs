@@ -53,15 +53,43 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards cards)
+        public async Task<IActionResult> Create([Bind("ID,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards card)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cards);
+                // 1. Check if the card (identified by its unique ID) already exists
+                var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.ID == card.ID);
+
+                if (existingCard != null)
+                {
+                    // 2. If the card exists, update its details (Edit/Update operation)
+
+                    existingCard.CardName = card.CardName;
+                    existingCard.Franchise = card.Franchise;
+                    existingCard.Image_URL = card.Image_URL;
+                    existingCard.Ink = card.Ink;
+                    existingCard.GemColor = card.GemColor;
+                    existingCard.Willpower = card.Willpower;
+                    existingCard.Strength = card.Strength;
+                    existingCard.SetName = card.SetName;
+
+                    // Mark the existing entity as modified
+                    _context.Update(existingCard);
+                }
+                else
+                {
+                    // 3. If the card does not exist, add it as a new record (Insert operation)
+                    _context.Add(card);
+                }
+
+                // 4. Save changes to the database
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(cards);
+
+            // If ModelState is not valid, return the view
+            return View(card);
         }
 
         // GET: Cards/Edit/5
@@ -147,6 +175,26 @@ namespace LorcanaCardCollector.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return BadRequest("Missing name parameter.");
+
+            var url = $"https://api.lorcana-api.com/cards/fetch?search=name~{Uri.EscapeDataString(name)}";
+
+            using var client = new HttpClient();
+            var response = await client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                return NotFound("No cards found.");
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            return Content(json, "application/json");
+        }
+
 
         private bool CardsExists(string id)
         {

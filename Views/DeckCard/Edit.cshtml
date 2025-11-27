@@ -1,36 +1,35 @@
 ﻿@model LorcanaCardCollector.Models.DeckCard
 
 @{
-    ViewData["Title"] = "Edit Deck Card";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Edit Deck Card</h2>
+<h1>Edit</h1>
 
-<form asp-action="Edit" method="post">
-    <div class="form-group">
-        <label>Deck</label>
-        <input type="text" class="form-control" value="@Model.Deck.DeckName" readonly />
-        <input type="hidden" asp-for="DeckId" />
+<h4>DeckCard</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CardId" />
+            <input type="hidden" asp-for="DeckId" />
+            <div class="form-group">
+                <label asp-for="QuantityInDeck" class="control-label"></label>
+                <input asp-for="QuantityInDeck" class="form-control" />
+                <span asp-validation-for="QuantityInDeck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="form-group">
-        <label>Card</label>
-        <input type="text" class="form-control" value="@Model.Card.CardName" readonly />
-        <input type="hidden" asp-for="CardId" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="QuantityInDeck"></label>
-        <input asp-for="QuantityInDeck" class="form-control" />
-        <span asp-validation-for="QuantityInDeck" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
