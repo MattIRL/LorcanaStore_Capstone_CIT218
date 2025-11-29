@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Cards";
 }
-
 <h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">Cards</h1>
 
 <div class="bg-opacity-70 rounded shadow-sm p-2" style="background: #d5b88b;">
@@ -41,7 +40,7 @@
                     <td>
                         <img src=@item.Image_URL
                              onclick="openImageOverlay('@item.Image_URL')"
-                             style="height:150px; cursor:pointer;" />
+                             style="height:150px; cursor:pointer; border-radius: .5rem;" />
                     </td>
                     <td class="h5">
                         @Html.DisplayFor(modelItem => item.CardName)
@@ -59,9 +58,9 @@
                         @Html.DisplayFor(modelItem => item.Franchise)
                     </td>
                     <td>
-                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.ID">Edit</a>
-                        <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.ID">Details</a>
-                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.ID">Delete</a>
+                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.CardId">Edit</a>
+                        <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.CardId">Details</a>
+                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.CardId">Delete</a>
                     </td>
                 </tr>
 
@@ -70,7 +69,7 @@
     </table>
     <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
         <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
-        <img id="overlayImg" class="overlay-content" />
+        <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
     </div>
     <script>
         function openImageOverlay(url) {

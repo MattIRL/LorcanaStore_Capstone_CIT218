@@ -53,7 +53,7 @@ namespace LorcanaCardCollector.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string ID { get; set; } = Guid.NewGuid().ToString();
+        public string CardId { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [Display(Name = "Card Name")]

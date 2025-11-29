@@ -47,7 +47,7 @@ namespace LorcanaCardCollector.Controllers
         // GET: Inventory/Create
         public IActionResult Create()
         {
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID");
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName");
             return View();
         }
 
@@ -56,15 +56,27 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InventoryId,CardId,Quantity,Cost,Price")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("CardId,Quantity,Cost,Price")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(inventory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                inventory.CardId = inventory.CardId.ToUpperInvariant();
+                try
+                {
+                    _context.Add(inventory);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
+                {
+                    // THIS WILL EXPOSE THE DB ERROR:
+                    var innerException = ex.InnerException?.Message;
+                    ModelState.AddModelError(string.Empty, $"Database Save Failed! Error: {innerException}");
+                }
             }
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", inventory.CardId);
+
+            // ... rest of the code to re-populate ViewBag and return View(inventory)
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName", inventory.CardId);
             return View(inventory);
         }
 
@@ -81,7 +93,7 @@ namespace LorcanaCardCollector.Controllers
             {
                 return NotFound();
             }
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", inventory.CardId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardId", inventory.CardId);
             return View(inventory);
         }
 
@@ -117,7 +129,7 @@ namespace LorcanaCardCollector.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", inventory.CardId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardId", inventory.CardId);
             return View(inventory);
         }
 

@@ -41,8 +41,8 @@ namespace LorcanaCardCollector.Controllers
         // GET: DeckCard/Create
         public IActionResult Create()
         {
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID");
-            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "AccessKey");
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName");
+            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "DeckName");
             return View();
         }
 
@@ -58,8 +58,8 @@ namespace LorcanaCardCollector.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", deckCard.CardId);
-            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "AccessKey", deckCard.DeckId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName", deckCard.CardId);
+            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "DeckName", deckCard.DeckId);
 
             return View(deckCard);
         }
@@ -72,8 +72,8 @@ namespace LorcanaCardCollector.Controllers
             if (deckCard == null)
                 return NotFound();
 
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", deckCard.CardId);
-            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "AccessKey", deckCard.DeckId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName", deckCard.CardId);
+            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "DeckName", deckCard.DeckId);
 
             return View(deckCard);
         }
@@ -104,8 +104,8 @@ namespace LorcanaCardCollector.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CardId"] = new SelectList(_context.Cards, "ID", "ID", deckCard.CardId);
-            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "AccessKey", deckCard.DeckId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName", deckCard.CardId);
+            ViewData["DeckId"] = new SelectList(_context.Decks, "DeckId", "DeckName", deckCard.DeckId);
 
             return View(deckCard);
         }

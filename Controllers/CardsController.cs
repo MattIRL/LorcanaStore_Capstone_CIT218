@@ -47,7 +47,7 @@ namespace LorcanaCardCollector.Controllers
             }
 
             var cards = await _context.Cards
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.CardId == id);
             if (cards == null)
             {
                 return NotFound();
@@ -67,12 +67,12 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards card)
+        public async Task<IActionResult> Create([Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards card)
         {
             if (ModelState.IsValid)
             {
                 // 1. Check if the card (identified by its unique ID) already exists
-                var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.ID == card.ID);
+                var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.CardId == card.CardId);
 
                 if (existingCard != null)
                 {
@@ -127,9 +127,9 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ID,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards cards)
+        public async Task<IActionResult> Edit(string id, [Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards cards)
         {
-            if (id != cards.ID)
+            if (id != cards.CardId)
             {
                 return NotFound();
             }
@@ -143,7 +143,7 @@ namespace LorcanaCardCollector.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CardsExists(cards.ID))
+                    if (!CardsExists(cards.CardId))
                     {
                         return NotFound();
                     }
@@ -166,7 +166,7 @@ namespace LorcanaCardCollector.Controllers
             }
 
             var cards = await _context.Cards
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.CardId == id);
             if (cards == null)
             {
                 return NotFound();
@@ -192,6 +192,6 @@ namespace LorcanaCardCollector.Controllers
 
 
 
-        private bool CardsExists(string id) => _context.Cards.Any(e => e.ID == id);
+        private bool CardsExists(string id) => _context.Cards.Any(e => e.CardId == id);
     }
 }

@@ -113,3 +113,9 @@ a {
 .card-result:hover .card-overlay {
     opacity: 1;
 }
+
+.scrollable-search-results {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

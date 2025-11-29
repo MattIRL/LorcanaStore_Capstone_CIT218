@@ -1,19 +1,21 @@
 ﻿@model LorcanaCardCollector.Models.Inventory
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Card";
 }
 
 <h1>Create</h1>
 
-<h4>Inventory</h4>
+<h1 class="freckle-font" style="color: #d5b88b">Add Card</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="bg-opacity-70 rounded shadow-sm p-3" style="background: #d5b88b;">
+    <div class="row text-light">
+
+        <div class="col-md-6 p-4 text-dark">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CardId" class="control-label"></label>
+                <label asp-for="CardId" class="control-label">Card ID</label>
                 <select asp-for="CardId" class ="form-control" asp-items="ViewBag.CardId"></select>
             </div>
             <div class="form-group">
@@ -31,16 +33,15 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary mt-sm-3 me-sm-3" formnovalidate />
+                    <a asp-action="Index" class="btn btn-secondary text-light mt-sm-3">Back to List</a>
+                </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

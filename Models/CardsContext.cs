@@ -56,7 +56,7 @@ namespace LorcanaCardCollector.Models
 
                 new Cards
                 {
-                    ID = "ARI-003", /* API reports as "Unique_ID" */
+                    CardId = "ARI-003", /* API reports as "Unique_ID" */
                     CardName = "King Stefan - New Father", /* API reports as "Name" */
                     Franchise = "Sleeping Beauty",
                     Image_URL = "https://lorcana-api.com/images/king_stefan/new_father/king_stefan-new_father-large.png", /* API reports as "Image" */
@@ -68,7 +68,7 @@ namespace LorcanaCardCollector.Models
 
                 new Cards
                 {
-                    ID = "ARI-001",
+                    CardId = "ARI-001",
                     CardName = "Rhino - Motivational Speaker",
                     Franchise = "Bolt",
                     Image_URL = "https://lorcana-api.com/images/rhino/motivational_speaker/rhino-motivational_speaker-large.png",
@@ -80,7 +80,7 @@ namespace LorcanaCardCollector.Models
 
                 new Cards
                 {
-                    ID = "ARI-002",
+                    CardId = "ARI-002",
                     CardName = "Perdita - Playful Mother",
                     Franchise = "101 Dalmatians",
                     Image_URL = "https://lorcana-api.com/images/perdita/playful_mother/perdita-playful_mother-large.png",

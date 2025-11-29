@@ -1,4 +1,4 @@
-﻿// Reusable helper for interacting with Lorcana API in forms
+﻿// Helper for API to be used in multpile views
 
 /**
  * Populate form inputs with data from a CardApiModel
@@ -8,9 +8,9 @@
 // Populate form inputs with data from a CardApiModel
 export function selectCard(card, prefix = "") {
     // Fill standard text/number fields
-    document.getElementById(prefix + "ID").value = card.unique_ID || "";
+    document.getElementById(prefix + "CardId").value = card.unique_ID || "";
     document.getElementById(prefix + "CardName").value = card.name || "";
-    document.getElementById(prefix + "Franchise").value = card.franchise || "";
+    document.getElementById(prefix + "Franchise").value = (card?.franchise?.trim() || "Disney");
     document.getElementById(prefix + "Image_URL").value = card.image || "";
     document.getElementById(prefix + "SetName").value = card.set_Name || "";
     document.getElementById(prefix + "Ink").value = card.cost ?? "";
@@ -46,10 +46,6 @@ export function selectCard(card, prefix = "") {
     if (selectElem) {
         selectElem.value = gemMap[card.color] || "";
     }
-
-    // Hide the search results once a card is selected
-    const results = document.getElementById(prefix + "searchResults");
-    if (results) results.style.display = 'none';
 }
 
 
@@ -71,7 +67,7 @@ export function attachCardSearch(searchInputId, searchBtnId, resultsContainerId,
         const query = input.value.trim();
         if (!query) return;
 
-        container.innerHTML = "<p>Searching...</p>";
+        container.innerHTML = "<p class='text - dark' >Searching...</p>";
         container.style.display = "block";
 
         try {
@@ -91,7 +87,7 @@ export function attachCardSearch(searchInputId, searchBtnId, resultsContainerId,
                 const div = document.createElement("div");
                 div.classList.add("card-result");
                 div.innerHTML = `
-                    <img src="${card.image}" alt="${card.name}" style="width:200px; height:auto;">
+                    <img src="${card.image}" alt="${card.name}" style="width:165px; height:auto;">
                     <div class="card-overlay">${card.name}</div>
                 `;
                 div.addEventListener("click", () => selectCard(card, formPrefix));
