@@ -85,6 +85,7 @@ namespace LorcanaCardCollector.Controllers
             {
                 DeckId = deck.DeckId,
                 DeckName = deck.DeckName,
+                DeckDescription = deck.DeckDescription,
                 Cards = allCards.Select(c => new CardCheckboxItem
                 {
                     CardId = c.CardId,

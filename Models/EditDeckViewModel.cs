@@ -4,6 +4,8 @@
     {
         public int DeckId { get; set; }
         public string DeckName { get; set; }
+
+        public string DeckDescription { get; set; }
         public List<CardCheckboxItem> Cards { get; set; } = new();
     }
 

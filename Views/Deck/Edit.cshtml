@@ -11,9 +11,13 @@
     <input asp-for="DeckId" type="hidden" />
 
     <div class="form-group">
-        <label asp-for="DeckName"></label>
+        <label asp-for="DeckName">Name</label>
         <input asp-for="DeckName" class="form-control" />
     </div>
+        <div class="form-group">
+            <label asp-for="DeckDescription">Description</label>
+            <input asp-for="DeckDescription" class="form-control" />
+        </div>
 
     <hr />
 
