@@ -88,12 +88,15 @@ namespace LorcanaCardCollector.Controllers
                 return NotFound();
             }
 
-            var inventory = await _context.Inventories.FindAsync(id);
+            var inventory = await _context.Inventories
+                .Include(i => i.Card)
+                .FirstOrDefaultAsync(i =>i.InventoryId == id);
+
             if (inventory == null)
             {
                 return NotFound();
             }
-            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardId", inventory.CardId);
+            ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName", inventory.CardId);
             return View(inventory);
         }
 

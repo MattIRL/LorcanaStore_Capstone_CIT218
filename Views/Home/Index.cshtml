@@ -16,9 +16,9 @@
             <label asp-for="CardName" class="form-label freckle-face-regular" style="font-size: 1.2rem;">Search for a Card Name</label>
             <input asp-for="CardName" class="form-control" />
         </div>
-        <button type="submit" class="btn-primary m-sm-3 rounded-2 ps-sm-2 pe-sm-2">
+        <button type="submit" class="btn btn-primary me-sm-3 rounded-2 ps-sm-2 pe-sm-2">
             <i class="fa fa-search"></i> Search</button>
-        <a asp-action="Index" class="m-sm-3">Clear</a>
+        <a asp-action="Index" class="btn btn-secondary rounded-2 ps-sm-2 pe-sm-2 text-light">Clear</a>
     </form>
     <hr />
     @if (ViewBag.Cards != null)
