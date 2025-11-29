@@ -25,22 +25,19 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var deck = await _context.Decks
+                .Include(d => d.DeckCards)
+                .ThenInclude(dc => dc.Card)
                 .FirstOrDefaultAsync(m => m.DeckId == id);
+
             if (deck == null)
-            {
                 return NotFound();
-            }
 
             return View(deck);
         }
+
 
         // GET: Deck/Create
         public IActionResult Create()
@@ -65,54 +62,78 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var deck = await _context.Decks
+                .Include(d => d.DeckCards)
+                .ThenInclude(dc => dc.Card)
+                .FirstOrDefaultAsync(d => d.DeckId == id);
 
-            var deck = await _context.Decks.FindAsync(id);
             if (deck == null)
-            {
                 return NotFound();
-            }
-            return View(deck);
+
+            var allCards = await _context.Cards.ToListAsync();
+
+            var vm = new EditDeckViewModel
+            {
+                DeckId = deck.DeckId,
+                DeckName = deck.DeckName,
+                Cards = allCards.Select(c => new CardCheckboxItem
+                {
+                    CardId = c.CardId,
+                    CardName = c.CardName,
+                    IsSelected = deck.DeckCards.Any(dc => dc.CardId == c.CardId)
+                }).ToList()
+            };
+
+            return View(vm);
         }
+
 
         // POST: Deck/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DeckId,DeckName,DeckDescription,AccessKey")] Deck deck)
+        public async Task<IActionResult> Edit(EditDeckViewModel vm)
         {
-            if (id != deck.DeckId)
+            var deck = await _context.Decks
+                .Include(d => d.DeckCards)
+                .FirstOrDefaultAsync(d => d.DeckId == vm.DeckId);
+
+            if (deck == null) return NotFound();
+
+            var existing = deck.DeckCards
+                .Select(DbContext => DbContext.CardId)
+                .ToList();
+
+            var selected = vm.Cards
+                .Where(c => c.IsSelected)
+                .Select(c => c.CardId)
+                .ToList();
+
+            var toAdd = selected.Except(existing).ToList();
+            var toRemove = existing.Except(selected).ToList();
+
+            foreach (var cardId in toAdd)
             {
-                return NotFound();
+                deck.DeckCards.Add(new DeckCard
+                {
+                    DeckId = deck.DeckId,
+                    CardId = cardId
+                });
             }
 
-            if (ModelState.IsValid)
+            foreach (var cardId in toRemove)
             {
-                try
-                {
-                    _context.Update(deck);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DeckExists(deck.DeckId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var dc = deck.DeckCards.FirstOrDefault(x => x.CardId == cardId);
+                if (dc != null)
+                    _context.DeckCards.Remove(dc);
             }
-            return View(deck);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Deck/Delete/5

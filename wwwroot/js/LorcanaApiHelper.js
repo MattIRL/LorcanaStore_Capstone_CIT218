@@ -87,7 +87,7 @@ export function attachCardSearch(searchInputId, searchBtnId, resultsContainerId,
                 const div = document.createElement("div");
                 div.classList.add("card-result");
                 div.innerHTML = `
-                    <img src="${card.image}" alt="${card.name}" style="width:165px; height:auto;">
+                    <img src="${card.image}" alt="${card.name}" style="width:165px; height:auto; border-radius: .5rem;">
                     <div class="card-overlay">${card.name}</div>
                 `;
                 div.addEventListener("click", () => selectCard(card, formPrefix));
