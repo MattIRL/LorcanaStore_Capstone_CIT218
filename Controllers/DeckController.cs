@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LorcanaCardCollector.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LorcanaCardCollector.Controllers
 {
+
     public class DeckController : Controller
     {
         private readonly CardsContext _context;
@@ -19,12 +21,14 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Decks.ToListAsync());
         }
 
         // GET: Deck/Details/5
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Details(int id)
         {
             var deck = await _context.Decks
@@ -40,6 +44,7 @@ namespace LorcanaCardCollector.Controllers
 
 
         // GET: Deck/Create
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -50,6 +55,7 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Create([Bind("DeckId,DeckName,DeckDescription,AccessKey")] Deck deck)
         {
             if (ModelState.IsValid)
@@ -62,6 +68,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck/Edit/5
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var deck = await _context.Decks
@@ -95,6 +102,7 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Edit(EditDeckViewModel vm)
         {
             var deck = await _context.Decks
@@ -137,6 +145,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +166,7 @@ namespace LorcanaCardCollector.Controllers
         // POST: Deck/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deck = await _context.Decks.FindAsync(id);

@@ -4,40 +4,41 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="freckle-font" style="color: #d5b88b">Create Deck</h1>
 
-<h4>Deck</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DeckName" class="control-label"></label>
-                <input asp-for="DeckName" class="form-control" />
-                <span asp-validation-for="DeckName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeckDescription" class="control-label"></label>
-                <input asp-for="DeckDescription" class="form-control" />
-                <span asp-validation-for="DeckDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AccessKey" class="control-label"></label>
-                <input asp-for="AccessKey" class="form-control" />
-                <span asp-validation-for="AccessKey" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="bg-opacity-70 rounded shadow-sm p-3" style="background: #d5b88b;">
+    <div class="row text-light">
+        <div class="col-md-6 text-dark">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="DeckName" class="control-label">Deck Name</label>
+                    <input asp-for="DeckName" class="form-control" />
+                    <span asp-validation-for="DeckName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeckDescription" class="control-label">Description</label>
+                    <input asp-for="DeckDescription" class="form-control" />
+                    <span asp-validation-for="DeckDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AccessKey" class="control-label">Access Key</label>
+                    <input asp-for="AccessKey" class="form-control" />
+                    <span asp-validation-for="AccessKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary mt-sm-3 me-sm-3" formnovalidate />
+                    <a asp-action="Index" class="btn btn-secondary text-light mt-sm-3">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -6,68 +6,61 @@
 
 <h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">Inventory</h1>
 
-<div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
+<div class="rounded shadow-sm p-2" style="background: #d5b88b;">
 
-<p>
+    <p>
         <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Add Card to Inventory</a>
-</p>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Card)
-            </th>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
                 <th>
 
                 </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Card.CardName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
 
                     <td>
                         <img src=@item.Card.Image_URL
                              onclick="openImageOverlay('@item.Card.Image_URL')"
-                             style="height:150px; cursor:pointer;"
+                             style="height:150px; cursor:pointer; border-radius: .5rem;"
                              title="@item.Card.CardName" />
                     </td>
-            <td>
-
-                @Html.DisplayFor(modelItem => item.Card.CardName)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.Price)
-            </td>
+                    <td class="h5">
+                        @Html.DisplayFor(modelItem => item.Card.CardName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Price)
+                    </td>
                     <td>
                         <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.InventoryId">Edit</a>
                         <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.InventoryId">Details</a>
                         <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.InventoryId">Delete</a>
                     </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>
     <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
         <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
-        <img id="overlayImg" class="overlay-content" />
+        <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
     </div>
     <script>
         function openImageOverlay(url) {
