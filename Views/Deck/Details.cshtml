@@ -6,7 +6,37 @@
 
 <h1>Details</h1>
 
-<div>
+
+<div class ="bg-opacity-70 ps-sm-4 rounded shadow-sm" style="background-color: #d5b88b">
+    <h4>Cards in this deck</h4>
+    @if (Model.DeckCards == null || !Model.DeckCards.Any())
+    {
+        <p>No cards in this deck yet.</p>
+    }
+
+    else
+    {
+        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
+
+            @foreach (var dc in Model.DeckCards)
+            {
+                var card = dc.Card;
+
+                <div class="col text-center">
+                    <div class="card-result">
+                        <img src="@card.Image_URL"
+                        alt="@card.CardName"
+                        style="width: 165px; height: auto; border-radius: .5rem;" />
+
+                        <div class="card-overlay">
+                            @card.CardName
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
     <h4>Deck</h4>
     <hr />
     <dl class="row">
@@ -29,8 +59,9 @@
             @Html.DisplayFor(model => model.AccessKey)
         </dd>
     </dl>
+    <div class="mt-2">
+        <a asp-action="Edit" asp-route-id="@Model?.DeckId" class=" btn btn-primary mb-4 me-2">Edit</a>
+        <a asp-action="Index" class=" btn btn-secondary text-light mb-4 ">Back to List</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.DeckId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

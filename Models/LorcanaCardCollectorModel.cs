@@ -34,16 +34,5 @@ namespace LorcanaCardCollector.Models
             return cards ?? new List<LorcanaCardDto>();
 
         }
-        /*
-        // This will become a dynamic search return based on the https://lorcana-api.com/
-
-        public string FetchCard()
-        {
-            string? cardName = CardName;
-            string CardResults = "~/Images/rhino-motivational_speaker-large.png";
-            return CardResults;
-        }
-        */
     }
 }
-// [DatabaseGenerated(DatabaseGeneratiedOption.None)]
