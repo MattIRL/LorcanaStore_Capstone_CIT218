@@ -1,16 +1,17 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+
 .freckle-font {
     font-family: "Freckle Face", system-ui;
     font-weight: 400;
@@ -18,8 +19,8 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -33,16 +34,18 @@ body {
 td {
     vertical-align: middle;
 }
+
 .btn-primary {
     background-color: #0092c7 !important;
     border-color: #005e80 !important;
     color: aliceblue !important;
 }
 
-.btn-primary:hover {
-    background-color: #005e80 !important;
-    border-color: #004159 !important;
-}
+    .btn-primary:hover {
+        background-color: #005e80 !important;
+        border-color: #004159 !important;
+    }
+
 a {
     color: #005e80 !important;
 }
@@ -76,4 +79,43 @@ a {
     color: #fff;
     cursor: pointer;
     font-weight: bold;
+}
+
+.card-result {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+    .card-result img {
+        width: 200px;
+        border-radius: 8px;
+        transition: transform .2s ease-in-out;
+    }
+
+    .card-result:hover img {
+        transform: scale(1.05);
+    }
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    text-align: center;
+    padding: 6px;
+    border-radius: 0 0 8px 8px;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+.card-result:hover .card-overlay {
+    opacity: 1;
+}
+
+.scrollable-search-results {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

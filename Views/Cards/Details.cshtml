@@ -7,44 +7,92 @@
 <h1 class="freckle-font" style="color: #d5b88b">Card Details</h1>
 
 <div class="bg-opacity-70 ps-sm-4 rounded shadow-sm" style="background-color: #d5b88b">
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CardName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CardName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GemColor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GemColor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SetName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SetName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ink)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ink)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Franchise)
-        </dt>
-        <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Franchise)
-                
-        </dd>
-    </dl>
+
+        <div class="row">
+            <div class="col-md-4 text-center">
+
+                <img src="@Model.Image_URL"
+                     style="width:300px; height:auto; cursor:pointer; border-radius: 1rem;"
+                     class="m-4"
+                     onclick="openImageOverlay('@Model.Image_URL')" />
+                <h4 class="mb-4">@Model.CardName</h4>
+            </div>
+            <div class="col-md-8">
+                <dl class="row m-4">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.CardId)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.CardId)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.CardName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.CardName)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Franchise)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Franchise)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.GemColor)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.GemColor)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.SetName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.SetName)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Ink)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Ink)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Willpower)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Willpower)
+
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Strength)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Strength)
+                    </dd>
+                </dl>
+
+
+            </div>
+            <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
+                <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
+                <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
+            </div>
+            <script>
+                function openImageOverlay(url) {
+                    document.getElementById("overlayImg").src = url;
+                    document.getElementById("imageOverlay").style.display = "flex";
+                }
+
+                function closeImageOverlay(event) {
+                    // prevent closing when clicking the image itself
+                    if (event && event.target.id === "overlayImg") return;
+                    document.getElementById("imageOverlay").style.display = "none";
+                }
+            </script>
+        </div>
+    <div class="mt-2">
+        <a asp-action="Edit" asp-route-id="@Model?.CardId" class=" btn btn-primary mb-4 me-2">Edit</a>
+        <a asp-action="Index" class=" btn btn-secondary text-light mb-4 ">Back to List</a>
+    </div>
 </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID" class=" btn btn-primary me-3">Edit</a>
-    <a asp-action="Index" class=" btn btn-secondary">Back to List</a>
-</div>
+
+

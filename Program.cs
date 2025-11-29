@@ -1,5 +1,6 @@
 using LorcanaCardCollector.Data;
 using LorcanaCardCollector.Models;
+using LorcanaCardCollector.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,11 @@ namespace LorcanaCardCollector
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddHttpClient<LorcanaApiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.lorcana-api.com/");
+            });
 
             var app = builder.Build();
 

@@ -24,7 +24,7 @@ namespace LorcanaCardCollector.Migrations
 
             modelBuilder.Entity("LorcanaCardCollector.Models.Cards", b =>
                 {
-                    b.Property<string>("ID")
+                    b.Property<string>("CardId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CardName")
@@ -58,14 +58,14 @@ namespace LorcanaCardCollector.Migrations
                     b.Property<int?>("Willpower")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("CardId");
 
                     b.ToTable("Cards");
 
                     b.HasData(
                         new
                         {
-                            ID = "ARI-003",
+                            CardId = "ARI-003",
                             CardName = "King Stefan - New Father",
                             Franchise = "Sleeping Beauty",
                             GemColor = 0,
@@ -75,7 +75,7 @@ namespace LorcanaCardCollector.Migrations
                         },
                         new
                         {
-                            ID = "ARI-001",
+                            CardId = "ARI-001",
                             CardName = "Rhino - Motivational Speaker",
                             Franchise = "Bolt",
                             GemColor = 10,
@@ -85,7 +85,7 @@ namespace LorcanaCardCollector.Migrations
                         },
                         new
                         {
-                            ID = "ARI-002",
+                            CardId = "ARI-002",
                             CardName = "Perdita - Playful Mother",
                             Franchise = "101 Dalmatians",
                             GemColor = 9,
@@ -133,18 +133,18 @@ namespace LorcanaCardCollector.Migrations
 
             modelBuilder.Entity("LorcanaCardCollector.Models.DeckCard", b =>
                 {
-                    b.Property<string>("CardId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("DeckId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CardId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("QuantityInDeck")
                         .HasColumnType("int");
 
-                    b.HasKey("CardId", "DeckId");
+                    b.HasKey("DeckId", "CardId");
 
-                    b.HasIndex("DeckId");
+                    b.HasIndex("CardId");
 
                     b.ToTable("DeckCards");
                 });

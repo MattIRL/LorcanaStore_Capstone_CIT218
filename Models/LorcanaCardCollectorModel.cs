@@ -2,7 +2,6 @@
 using static System.Net.Mime.MediaTypeNames;
 using System.Net.Http;
 using System.Text.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace LorcanaCardCollector.Models
 
