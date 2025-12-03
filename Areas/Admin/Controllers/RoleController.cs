@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LorcanaCardCollector.Controllers
+namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class RoleController : Controller

@@ -1,0 +1,40 @@
+﻿@model LorcanaCardCollector.Models.Deck
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h1 class="freckle-font" style="color: #d5b88b">Delete Deck</h1>
+
+<div class="bg-opacity-70 rounded shadow-sm p-2" style="background: #d5b88b;">
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>@Model.DeckName</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DeckName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DeckName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DeckDescription)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DeckDescription)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AccessKey)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AccessKey)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="DeckId" />
+            <input type="submit" value="Delete" class="btn btn-danger me-sm-3" />
+            <a asp-action="Index" class="btn btn-secondary text-light">Cancel</a>
+        </form>
+    </div>
+</div>
