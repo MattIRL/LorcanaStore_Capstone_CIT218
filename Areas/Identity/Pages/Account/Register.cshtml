@@ -29,7 +29,7 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <!--Added for Roles-->
-            <div class="form-group mb-3 visually-hidden">
+            <div class="form-group mb-3">
                 <label asp-for="Input.Name"></label>
                 <select asp-for="Input.Name" class="form-control" asp-items='new SelectList(roles, "Id", "Name")'>
                 </select>
