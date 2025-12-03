@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LorcanaCardCollector.Controllers
 {
+
     public class CardsController : Controller
     {
         private readonly CardsContext _context;
@@ -22,6 +24,7 @@ namespace LorcanaCardCollector.Controllers
             
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Search(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -33,12 +36,16 @@ namespace LorcanaCardCollector.Controllers
 
 
         // GET: Cards
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cards.ToListAsync());
+            return View(await _context.Cards
+                .OrderBy(c => c.CardName)
+                .ToListAsync());
         }
 
         // GET: Cards/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -57,6 +64,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Cards/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +75,7 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards card)
         {
             if (ModelState.IsValid)
@@ -107,6 +116,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Cards/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -127,6 +137,7 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id, [Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards cards)
         {
             if (id != cards.CardId)
@@ -158,6 +169,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Cards/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -178,6 +190,7 @@ namespace LorcanaCardCollector.Controllers
         // POST: Cards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var cards = await _context.Cards.FindAsync(id);

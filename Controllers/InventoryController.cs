@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LorcanaCardCollector.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LorcanaCardCollector.Controllers
 {
@@ -17,15 +18,18 @@ namespace LorcanaCardCollector.Controllers
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         // GET: Inventory
         public async Task<IActionResult> Index()
         {
             var cardsContext = _context.Inventories.Include(i => i.Card);
-            return View(await cardsContext.ToListAsync());
+            return View(await cardsContext
+                .OrderBy(c => c.Card.CardName)
+                .ToListAsync());
         }
 
         // GET: Inventory/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +49,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Inventory/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName");
@@ -56,6 +61,7 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("CardId,Quantity,Cost,Price")] Inventory inventory)
         {
             if (ModelState.IsValid)
@@ -81,6 +87,8 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Inventory/Edit/5
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,6 +113,8 @@ namespace LorcanaCardCollector.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id, [Bind("InventoryId,CardId,Quantity,Cost,Price")] Inventory inventory)
         {
             if (id != inventory.InventoryId)
@@ -137,6 +147,8 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Inventory/Delete/5
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -158,6 +170,8 @@ namespace LorcanaCardCollector.Controllers
         // POST: Inventory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var inventory = await _context.Inventories.FindAsync(id);
