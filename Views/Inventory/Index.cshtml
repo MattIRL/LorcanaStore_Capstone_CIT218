@@ -4,27 +4,55 @@
     ViewData["Title"] = "Inventory";
 }
 
-<h1 class="freckle-font" style="color: #d5b88b; opacity: 0.9;">Inventory</h1>
+<h1 class="freckle-font" style="color: #d5b88b;">Inventory</h1>
 
 <div class="rounded shadow-sm p-2" style="background: #d5b88b;">
 
-    <p>
-        <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Add Card to Inventory</a>
-    </p>
+    <form asp-action="Index" method="get">
+        <div class="forma-actions no-color">
+            <p>
+                Search Card Name: </ br>
+                <input type="text"
+                       class="form-control mb-2"
+                       name="SearchString"
+                       value="@ViewData["currentFilter"]"
+                       placeholder="e.g. Rhino..." />
+                <input type="submit"
+                       value="Search"
+                       class="btn btn-primary" />
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-md-2 text-light">
+                    Clear
+                </a>
+            </p>
+        </div>
+    </form>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>
-
+                    Sort by:
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Card.CardName)
+                    <a asp-action="Index"
+                       style="text-decoration: none;"
+                       asp-route-sortOrder="@ViewData["NameSortParm"]">
+                        @Html.DisplayNameFor(model => model.Card.CardName)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
+                    <a asp-action="Index"
+                       style="text-decoration: none;"
+                       asp-route-sortOrder="@ViewData["StockSortParm"]">
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    <a asp-action="Index"
+                       style="text-decoration: none;"
+                       asp-route-sortOrder="@ViewData["PriceSortParm"]">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </a>
                 </th>
                 <th></th>
             </tr>
@@ -50,15 +78,13 @@
                         $@Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.InventoryId">Edit</a>
                         <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.InventoryId">Details</a>
-                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.InventoryId">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
+    <div id="imageOverlay" class="overlay" onclick="closeImageOverlay(event)">
         <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
         <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
     </div>

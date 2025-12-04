@@ -10,25 +10,23 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LorcanaCardCollector.Controllers
 {
-
+    
     public class DeckController : Controller
     {
         private readonly CardsContext _context;
-
+       
         public DeckController(CardsContext context)
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         // GET: Deck
-        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Decks.ToListAsync());
         }
-
+        [AllowAnonymous]
         // GET: Deck/Details/5
-        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Details(int id)
         {
             var deck = await _context.Decks
@@ -41,8 +39,7 @@ namespace LorcanaCardCollector.Controllers
 
             return View(deck);
         }
-
-
+        
         // GET: Deck/Create
         [Authorize(Roles = "User, Admin")]
         public IActionResult Create()
@@ -145,44 +142,11 @@ namespace LorcanaCardCollector.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Deck/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deck = await _context.Decks
-                .FirstOrDefaultAsync(m => m.DeckId == id);
-            if (deck == null)
-            {
-                return NotFound();
-            }
-
-            return View(deck);
-        }
-
-        // POST: Deck/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var deck = await _context.Decks.FindAsync(id);
-            if (deck != null)
-            {
-                _context.Decks.Remove(deck);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+        /*
         private bool DeckExists(int id)
         {
             return _context.Decks.Any(e => e.DeckId == id);
         }
+        */
     }
 }

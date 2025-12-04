@@ -2,24 +2,29 @@
 @model LorcanaCardCollector.Models.LorcanaCardCollectorModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Lorcana Store";
 }
 
-<div class="text-center m-sm-4 rounded shadow-sm" style="background-color: #d5b88b; opacity: .9;">
-    <!--<h3 class="display-6 text-dark pt-sm-4">Welcome to the</h3> -->
-    <h1 class="display-4 text-dark freckle-font pt-sm-3 mb-sm-0">Lorcana Store</h1>
+<div class="text-center m-sm-4 rounded shadow-sm" style="background-color: #d5b88b;">
+    
+    <h1 class="display-4 text-dark freckle-font pt-sm-3 mb-sm-0">Lorcana Card Collector</h1>
     <p class="text-dark mt-sm-0 mb-sm-4" style="font-size: 1.5rem;">Check Inventory and Build Decks</p>
-
+    <a asp-action="Index" asp-controller="Inventory" class="btn btn-primary"><span class="freckle-font" style="font-size: 2rem;">Check our Inventory</span></a>
     <!-- Search bar and buttons -->
     <form action="/Home/Index" method="post" >
         <div class="form-group p-sm-4">
-            <label asp-for="CardName" class="form-label freckle-face-regular" style="font-size: 1.2rem;">Search for a Card Name</label>
+            <p style="font-size: 1.2rem;">or</p>
+            <label asp-for="CardName" class="form-label" style="font-size: 1.5rem;">Search every Lorcana card by Name</label>
             <input asp-for="CardName" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary me-sm-3 rounded-2 ps-sm-2 pe-sm-2">
             <i class="fa fa-search"></i> Search</button>
         <a asp-action="Index" class="btn btn-secondary rounded-2 ps-sm-2 pe-sm-2 text-light">Clear</a>
     </form>
+    <div id="imageOverlay" class="overlay" onclick="closeImageOverlay(event)">
+        <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
+        <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
+    </div>
     <hr />
     @if (ViewBag.Cards != null)
     {
@@ -32,7 +37,11 @@
                 {
                     <div class="col text-center">
                         <div class="card-result">
-                            <img src="@card.Image" class="card-img-top" alt="@card.Name" style="border-radius: .5rem;"/>
+                            <img src="@card.Image"
+                                 onclick="openImageOverlay('@card.Image')"
+                                 class="card-img-top"
+                                 alt="@card.Name"
+                                 style="border-radius: .5rem;cursor: pointer;" />
 
                             <div class="card-overlay">@card.Name
                                 
@@ -45,17 +54,28 @@
         else
         {
             <div class="row row cols-1" style="width:200px; margin-right: auto; margin-left: auto;">
-                <div class="card shadow-sm">
+                <div class="card-result">
                     <img src="~/Images/notFound.jpg" class="card-img-top" />
-                    <div class="card-body">
-                        <p>No cards found.</p>
+                        <div class="card-overlay">No cards found.</div>
                     </div>
                 </div>
-            </div>
         }
 
         
 }
+
+    <script>
+        function openImageOverlay(url) {
+            document.getElementById("overlayImg").src = url;
+            document.getElementById("imageOverlay").style.display = "flex";
+        }
+
+        function closeImageOverlay(event) {
+            // prevent closing when clicking the image itself
+            if (event && event.target.id === "overlayImg") return;
+            document.getElementById("imageOverlay").style.display = "none";
+        }
+    </script>
 </div>
 
 <!-- Dynamic area to display cards or error message -->

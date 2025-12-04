@@ -8,37 +8,39 @@
 
 <div class="bg-opacity-70 rounded shadow-sm" style="background: #d5b88b;">
 
-    <p>
-        <a asp-action="Create" class="m-sm-2 btn btn-primary rounded-2">Create New</a>
-    </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Deck Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeckName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeckDescription)
-            </td>
+    <div>
+        <a asp-action="Create" class="m-sm-2 mb-0 btn btn-primary rounded-2">Create New</a>
+        <p class="m-2 mt-0 text-muted">You must be logged in to create or edit decks.</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Deck Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
                     <td>
-                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.DeckId">Edit</a>
-                        <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.DeckId">Details</a>
-                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.DeckId">Delete</a>
+                        @Html.DisplayFor(modelItem => item.DeckName)
                     </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeckDescription)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-primary me-sm-2 text-light" asp-route-id="@item.DeckId">Edit</a>
+                        <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.DeckId">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

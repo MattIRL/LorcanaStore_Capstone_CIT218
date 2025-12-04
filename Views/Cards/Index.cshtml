@@ -26,9 +26,6 @@
                 @Html.DisplayNameFor(model => model.SetName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ink)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Franchise)
             </th>
             <th></th>
@@ -52,15 +49,10 @@
                         @Html.DisplayFor(modelItem => item.SetName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Ink)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Franchise)
                     </td>
                     <td>
-                        <a asp-action="Edit" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.CardId">Edit</a>
                         <a asp-action="Details" class="btn btn-secondary me-sm-2 text-light" asp-route-id="@item.CardId">Details</a>
-                        <a asp-action="Delete" class="btn btn-danger me-sm-2 text-light" asp-route-id="@item.CardId">Delete</a>
                     </td>
                 </tr>
 
