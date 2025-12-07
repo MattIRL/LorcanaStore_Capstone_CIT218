@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LorcanaCardCollector.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles ="Admin")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;
