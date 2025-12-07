@@ -96,7 +96,9 @@ namespace LorcanaCardCollector.Controllers
                         ImageUrl = c.Image_URL,
                         Quantity = deckCard?.QuantityInDeck ?? 0
                     };
-                }).ToList()
+                })
+                .OrderBy(c => c.CardName)
+                .ToList()
             };
 
             return View(vm);
@@ -115,6 +117,10 @@ namespace LorcanaCardCollector.Controllers
 
             if (deck == null)
                 return NotFound();
+
+            // Update deck name & description
+            deck.DeckName = vm.DeckName;
+            deck.DeckDescription = vm.DeckDescription;
 
             // Cards user submitted with Quantity > 0
             var submitted = vm.Cards.Where(c => c.Quantity > 0).ToList();
