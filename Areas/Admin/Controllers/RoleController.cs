@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;

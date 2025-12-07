@@ -1,10 +1,12 @@
-using System.Diagnostics;
 using LorcanaCardCollector.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminHomeController : Controller
     {
 

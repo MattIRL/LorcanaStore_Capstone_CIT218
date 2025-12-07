@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LorcanaCardCollector.Models.Inventory>
+﻿@model PaginatedList<LorcanaCardCollector.Models.Inventory>
 
 @{
     ViewData["Title"] = "Inventory";
@@ -37,21 +37,21 @@
                     <a asp-action="Index"
                        style="text-decoration: none;"
                        asp-route-sortOrder="@ViewData["NameSortParm"]">
-                        @Html.DisplayNameFor(model => model.Card.CardName)
+                        @Html.DisplayNameFor(model => model[0].Card.CardName)
                     </a>
                 </th>
                 <th>
                     <a asp-action="Index"
                        style="text-decoration: none;"
                        asp-route-sortOrder="@ViewData["StockSortParm"]">
-                        @Html.DisplayNameFor(model => model.Quantity)
+                        @Html.DisplayNameFor(model => model[0].Quantity)
                     </a>
                 </th>
                 <th>
                     <a asp-action="Index"
                        style="text-decoration: none;"
                        asp-route-sortOrder="@ViewData["PriceSortParm"]">
-                        @Html.DisplayNameFor(model => model.Price)
+                        @Html.DisplayNameFor(model => model[0].Price)
                     </a>
                 </th>
                 <th></th>
@@ -88,6 +88,28 @@
         <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
         <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
     </div>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+       <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+
+    <span>@Model.PageIndex</span>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+
+
     <script>
         function openImageOverlay(url) {
             document.getElementById("overlayImg").src = url;

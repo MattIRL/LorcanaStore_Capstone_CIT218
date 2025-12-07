@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class DeckCardController : Controller
     {
         private readonly CardsContext _context;

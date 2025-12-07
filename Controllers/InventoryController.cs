@@ -20,15 +20,27 @@ namespace LorcanaCardCollector.Controllers
         }
         [AllowAnonymous]
         // GET: Inventory
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
             ViewData["StockSortParm"] = sortOrder == "quantity" ? "quantity_desc" : "quantity";
             
-            var cards = from c in _context.Inventories
-                        .Include(c => c.Card)
-                        select c;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["Currentfilter"] = searchString;
+
+                var cards = from c in _context.Inventories
+                            .Include(c => c.Card)
+                            select c;
             
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -56,7 +68,8 @@ namespace LorcanaCardCollector.Controllers
                     cards = cards.OrderBy(s => s.Card.CardName);
                     break;
             }
-            return View(cards);
+            int pageSize = 4;
+            return View(await PaginatedList<Inventory>.CreateAsync(cards.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Inventory/Details/5

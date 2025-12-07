@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class InventoryController : Controller
     {
         private readonly CardsContext _context;
@@ -19,7 +20,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         {
             _context = context;
         }
-        [AllowAnonymous]
+
         // GET: Inventory
         public async Task<IActionResult> Index()
         {
@@ -30,7 +31,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Inventory/Details/5
-        [AllowAnonymous]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,7 +51,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Inventory/Create
-        [Authorize(Roles = "Admin")]
+
         public IActionResult Create()
         {
             ViewData["CardId"] = new SelectList(_context.Cards, "CardId", "CardName");
@@ -62,7 +63,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create([Bind("CardId,Quantity,Cost,Price")] Inventory inventory)
         {
             if (ModelState.IsValid)
@@ -88,7 +89,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Inventory/Edit/5
-        [Authorize(Roles = "Admin")]
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -114,7 +115,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+
 
         public async Task<IActionResult> Edit(int id, [Bind("InventoryId,CardId,Quantity,Cost,Price")] Inventory inventory)
         {
@@ -148,7 +149,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Inventory/Delete/5
-        [Authorize(Roles = "Admin")]
+
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -171,7 +172,7 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // POST: Inventory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

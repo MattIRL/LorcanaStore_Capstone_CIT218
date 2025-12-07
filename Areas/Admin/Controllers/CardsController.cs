@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LorcanaCardCollector.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CardsController : Controller
     {
         private readonly CardsContext _context;
@@ -36,7 +37,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
 
 
         // GET: Cards
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cards
@@ -45,7 +45,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Cards/Details/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -64,7 +63,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Cards/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -75,7 +73,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards card)
         {
             if (ModelState.IsValid)
@@ -116,7 +113,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Cards/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -137,7 +133,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id, [Bind("CardId,CardName,Franchise,Image_URL,Ink,GemColor,Willpower,Strength,SetName")] Cards cards)
         {
             if (id != cards.CardId)
@@ -169,7 +164,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         }
 
         // GET: Cards/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -190,7 +184,6 @@ namespace LorcanaCardCollector.Areas.Admin.Controllers
         // POST: Cards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var cards = await _context.Cards.FindAsync(id);
