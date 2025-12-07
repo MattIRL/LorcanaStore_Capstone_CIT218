@@ -97,10 +97,10 @@
        asp-route-pageNumber="@(Model.PageIndex - 1)"
        asp-route-currentFilter="@ViewData["CurrentFilter"]"
        class="btn btn-default @prevDisabled">
-       <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
 
-    <span>@Model.PageIndex</span>
+    <span>Page @Model.PageIndex</span>
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-pageNumber="@(Model.PageIndex + 1)"

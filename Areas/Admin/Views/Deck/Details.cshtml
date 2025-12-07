@@ -16,7 +16,7 @@
 
     else
     {
-        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
+        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6">
 
             @foreach (var dc in Model.DeckCards)
             {
@@ -26,12 +26,13 @@
                     <div class="card-result">
                         <img src="@card.Image_URL"
                         alt="@card.CardName"
-                        style="width: 165px; height: auto; border-radius: .5rem;" />
+                        style="width: 150px; height: auto; border-radius: .5rem;" />
 
                         <div class="card-overlay">
                             @card.CardName
                         </div>
                     </div>
+                    <p>x @dc.QuantityInDeck</p>
                 </div>
             }
         </div>

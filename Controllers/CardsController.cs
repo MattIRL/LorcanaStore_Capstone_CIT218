@@ -38,12 +38,26 @@ namespace LorcanaCardCollector.Controllers
 
 
         // GET: Cards
-        [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            int pageSize = 4;
+
+            var cards = from c in _context.Cards
+                        .OrderBy(c => c.CardName)
+                        select c;
+
+            return View(await PaginatedList<Cards>
+                .CreateAsync(cards.AsNoTracking(), pageNumber ?? 1, pageSize));
+            /*
             return View(await _context.Cards
-                .OrderBy(c => c.CardName)
-                .ToListAsync());
+                    .OrderBy(c => c.CardName)
+                    .ToListAsync());
+            */
         }
 
         // GET: Cards/Details/5

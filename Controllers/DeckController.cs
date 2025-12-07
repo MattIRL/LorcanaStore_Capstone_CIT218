@@ -19,14 +19,14 @@ namespace LorcanaCardCollector.Controllers
         }
 
         // GET: Deck
-        [Authorize(Roles = "User, Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Decks.ToListAsync());
         }
 
         // GET: Deck/Details/5
-        [Authorize(Roles = "User, Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var deck = await _context.Decks
@@ -36,7 +36,9 @@ namespace LorcanaCardCollector.Controllers
 
             if (deck == null)
                 return NotFound();
-
+            deck.DeckCards = deck.DeckCards
+                .OrderBy(dc => dc.Card.CardName)
+                .ToList();
             return View(deck);
         }
 
@@ -63,7 +65,7 @@ namespace LorcanaCardCollector.Controllers
             return View(deck);
         }
 
-        // GET: Deck/Edit/5 (QUANTITY VERSION)
+        // GET: Deck/Edit/5
         [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -75,7 +77,7 @@ namespace LorcanaCardCollector.Controllers
             if (deck == null)
                 return NotFound();
 
-            var allCards = await _context.Cards.ToListAsync();
+            var allCards = await _context.Cards.OrderBy(c => c.CardName).ToListAsync();
 
             var vm = new EditDeckViewModel
             {
@@ -91,7 +93,7 @@ namespace LorcanaCardCollector.Controllers
                     {
                         CardId = c.CardId,
                         CardName = c.CardName,
-                        ImageUrl = c.Image_URL,          // optional
+                        ImageUrl = c.Image_URL,
                         Quantity = deckCard?.QuantityInDeck ?? 0
                     };
                 }).ToList()
@@ -101,7 +103,7 @@ namespace LorcanaCardCollector.Controllers
         }
 
 
-        // POST: Deck/Edit/5 (QUANTITY VERSION)
+        // POST: Deck/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "User, Admin")]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LorcanaCardCollector.Models.Cards>
+﻿@model PaginatedList<LorcanaCardCollector.Models.Cards>
 
 @{
     ViewData["Title"] = "Cards";
@@ -17,16 +17,16 @@
                 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CardName)
+                @Html.DisplayNameFor(model => model[0].CardName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GemColor)
+                @Html.DisplayNameFor(model => model[0].GemColor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SetName)
+                @Html.DisplayNameFor(model => model[0].SetName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Franchise)
+                @Html.DisplayNameFor(model => model[0].Franchise)
             </th>
             <th></th>
         </tr>
@@ -59,6 +59,26 @@
 }
         </tbody>
     </table>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+
+    <span>Page @Model.PageIndex</span>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
     <div id="imageOverlay" class="overlay" onclick="closeImageOverlay()">
         <span class="close-btn" onclick="closeImageOverlay(event)"><i class="fa-solid fa-xmark"></i></span>
         <img id="overlayImg" class="overlay-content" style="border-radius: 2.5rem;" />
