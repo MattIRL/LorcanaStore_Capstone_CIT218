@@ -15,13 +15,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Card)
+                @Html.DisplayNameFor(model => model.Card.CardName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Deck)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantityInDeck)
+                No. in Deck
             </th>
             <th></th>
         </tr>
@@ -39,7 +39,8 @@
                 @Html.DisplayFor(modelItem => item.QuantityInDeck)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { deckId = item.DeckId, cardId = item.CardId }) |
+
+                    @Html.ActionLink("Edit", "Edit", new { deckId = item.DeckId, cardId = item.CardId }) |
                     @Html.ActionLink("Details", "Details", new { deckId = item.DeckId, cardId = item.CardId }) |
                     @Html.ActionLink("Delete", "Delete", new { deckId = item.DeckId, cardId = item.CardId })
             </td>

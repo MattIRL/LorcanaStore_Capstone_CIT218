@@ -1,0 +1,59 @@
+﻿@model EditDeckViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<div class="bg-opacity-70 rounded shadow-sm p-4" style="background: #d5b88b;">
+<h4>Deck</h4>
+<form asp-action="Edit" method="post">
+    <input asp-for="DeckId" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="DeckName">Name</label>
+        <input asp-for="DeckName" class="form-control" />
+    </div>
+        <div class="form-group">
+            <label asp-for="DeckDescription">Description</label>
+            <input asp-for="DeckDescription" class="form-control" />
+        </div>
+
+    <hr />
+
+    <h4>Cards in Deck</h4>
+        <div class="row">
+            @for (int i = 0; i < Model.Cards.Count; i++)
+            {
+                <div class="col-md-3 mb-4 text-center">
+                    <input type="hidden" asp-for="Cards[@i].CardId" />
+
+                    <img src="@Model.Cards[i].ImageUrl"
+                         alt="@Model.Cards[i].CardName"
+                         class="img-fluid rounded shadow-sm mb-2"
+                         style="max-height:200px; object-fit: contain;" />
+
+                    <div class="fw-bold mb-1">@Model.Cards[i].CardName</div>
+
+                    <div class="input-group input-group-sm w-75 mx-auto">
+                        <span class="input-group-text">Qty</span>
+                        <input asp-for="Cards[@i].Quantity"
+                               class="form-control text-center"
+                               type="number"
+                               min="0"
+                               max="4" />
+                    </div>
+                </div>
+            }
+        </div>
+
+    <button type="submit" class="btn btn-primary mt-sm-3 me-2">Save</button>
+        <a asp-action="Index" class="btn btn-secondary text-light mt-sm-3">Back to List</a>
+</form>
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

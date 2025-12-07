@@ -15,9 +15,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #d5b88b">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: salmon;">
             <div class="container-fluid">
-                <a class="navbar-brand freckle-font" style="color: #212529 !important; font-size: 1.5rem;" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/Images/LCC_Logo.png" style="max-height: 40px;"/></a>
+                <a class="navbar-brand text-center freckle-font" style="color: #212529 !important; font-size: 1.5rem;" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/Images/LCC_Logo.png" style="max-height: 40px;" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,16 +26,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index">Inventory</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Inventory" asp-action="Index">Inventory</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Deck" asp-action="Index">Decks</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Deck" asp-action="Index">Decks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cards" asp-action="Index">Cards</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Cards" asp-action="Index">Cards</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
@@ -59,7 +59,7 @@
     <!-- Footer Info -->
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Lorcana Card Collector - <a asp-area="" asp-controller="Home" asp-action="About">About</a> | <a asp-area="admin" asp-controller="AdminHome" asp-action="Index">Admin</a>
+            &copy; 2025 - Lorcana Card Collector - <a asp-area="" asp-controller="Home" asp-action="About">About</a> | <a asp-area="" asp-controller="Home" asp-action="Index">Public</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
