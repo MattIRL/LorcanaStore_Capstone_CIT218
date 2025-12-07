@@ -6,13 +6,14 @@
         public string DeckName { get; set; }
 
         public string DeckDescription { get; set; }
-        public List<CardCheckboxItem> Cards { get; set; } = new();
+        public List<DeckCardItem> Cards { get; set; } = new();
     }
 
-    public class CardCheckboxItem
+    public class DeckCardItem
     {
         public string CardId { get; set; }
         public string CardName { get; set; }
-        public bool IsSelected { get; set; }
+        public string ImageUrl { get; set; }
+        public int Quantity { get; set; }
     }
 }

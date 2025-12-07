@@ -8,9 +8,10 @@
 <hr />
 
 <div class="bg-opacity-70 rounded shadow-sm p-3" style="background: #d5b88b;">
+    <h5>Search Lorcana API for Cards</h5>
     <div class="row text-light">
         <div class="col-md-8 p-4 text-dark">
-            <h5>Search Lorcana API for Cards</h5>
+
             <div class="input-group">
                 <input id="searchInput" type="text" class="form-control" placeholder="Search by card name..." />
                 <button id="searchBtn" type="button" class="btn btn-primary ms-2">Search</button>
@@ -26,8 +27,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group mb-sm-2">
-                    <label asp-for="CardName" class="control-label"></label>
-                    <input asp-for="CardName" class="form-control" readonly />
+                    <input asp-for="CardName" class="form-control" placeholder="Select a card" readonly />
                     <span asp-validation-for="CardName" class="text-danger"></span>
                 </div>
                 @Html.HiddenFor(model => model.CardId)
@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary mt-sm-3 me-sm-3" formnovalidate />
-                    <a asp-action="Index" class="btn btn-secondary text-light mt-sm-3">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-primary me-sm-3" formnovalidate />
+                    <a asp-action="Index" class="btn btn-secondary text-light">Back to List</a>
                 </div>
             </form>
         </div>
