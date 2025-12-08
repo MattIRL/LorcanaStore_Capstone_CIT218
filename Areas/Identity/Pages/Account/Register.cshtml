@@ -29,10 +29,14 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <!--Added for Roles-->
+            <input type="hidden" asp-for="Input.Name" value="@roles.First(r => r.Name == "User").Id" />
+
             <div class="form-group mb-3">
-                <label asp-for="Input.Name"></label>
+                <input type="hidden" asp-for="Input.Name" value="@roles.First(r => r.Name == "User").Id" />
+
+<!--                <label asp-for="Input.Name"></label>
                 <select asp-for="Input.Name" class="form-control" asp-items='new SelectList(roles, "Id", "Name")'>
-                </select>
+                                </select>-->
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
